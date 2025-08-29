@@ -56,10 +56,10 @@ python "$(dirname "$0")/../finetune_reward.py" \
     --task dna \
     --wandb_mode online \
     --wandb_group dna_distillation \
-    --wandb_name step128_DDPP_alpha01_lr1e-4 \
+    --wandb_name step128_DDPP_alpha1_lr1e-4_lmbda0 \
     --total_num_steps 128 \
     --loss_func DDPP \
     --teacher_alpha 1.0 \
     --learning_rate 1e-4 \
-    --gkd_lmbda 0.5
+    --gkd_lmbda 0.0
 
