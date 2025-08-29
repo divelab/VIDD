@@ -173,10 +173,28 @@ def run(args, rank=None):
 
                 if random.random() < gkd_lmbda:
                     # student model as roll-in distribution
-                    last_x_list, condt_list, conds_list, move_chance_t_list, move_chance_s_list, copy_flag_list = \
-                        last_x_list_new, condt_list_new, conds_list_new, move_chance_t_list_new, move_chance_s_list_new, copy_flag_list_new
-                    current_roll_in = "student"
-                    final_sample = sample_new
+                    if args.old_roll_in:
+                        sample_old, last_x_list_old, condt_list_old, conds_list_old, \
+                            move_chance_t_list_old, move_chance_s_list_old, copy_flag_list_old = \
+                            generate_xt_list(
+                                args=args,
+                                generative_model=old_model,
+                                device=device,
+                                timesteps=timesteps,
+                                dt=dt,
+                                reward_model=eval_models,
+                                num_best_of_N=args.best_of_N,
+                                train_stage=True,
+                            )
+                        last_x_list, condt_list, conds_list, move_chance_t_list, move_chance_s_list, copy_flag_list = \
+                            last_x_list_old, condt_list_old, conds_list_old, move_chance_t_list_old, move_chance_s_list_old, copy_flag_list_old
+                        current_roll_in = "old"
+                        final_sample = sample_old
+                    else:
+                        last_x_list, condt_list, conds_list, move_chance_t_list, move_chance_s_list, copy_flag_list = \
+                            last_x_list_new, condt_list_new, conds_list_new, move_chance_t_list_new, move_chance_s_list_new, copy_flag_list_new
+                        current_roll_in = "student"
+                        final_sample = sample_new
                 else:
                     if args.use_decoding:
                         sample_pre_str = random.sample(all_sequences, args.batch_size)
@@ -570,6 +588,9 @@ if __name__ == '__main__':
 
     # loss function
     parser.add_argument('--loss_func', type=str, default="KL")
+    parser.add_argument('--rs_gen_model', default='pre')
+    parser.add_argument('--old_roll_in', action='store_true')
+    parser.add_argument('--use_value_xt', action='store_true')
 
     # DDPO
     parser.add_argument("--ratio_clip", type=float, default=1e-4)
@@ -588,7 +609,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_base_path', default="/data484_2/xsu2/PolicyDistillation/DNA", type=str)
     parser.add_argument('--eps', type=float, default=1e-5)
     parser.add_argument('--target_update_interval', type=int, default=20)
-    parser.add_argument('--num_epochs', type=int, default=2000)
+    parser.add_argument('--num_epochs', type=int, default=10000)
     parser.add_argument('--grad_clip', type=float, default=1.0)
     parser.add_argument('--save_every_n_epochs', type=int, default=250)
 

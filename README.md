@@ -32,6 +32,13 @@ Example scripts:
 - `scripts/protein_binder_IFNAR2.sh` - IFNAR2 binding optimization  
 - `scripts/protein_ss.sh` - Secondary structure optimization
 
+### DNA Optimization
+
+DNA experiments include:
+- **Enhancer Activity**: Optimize sequences for enhancer activity in the HepG2 cell line
+
+Example scripts:
+- `scripts/dna.sh` - Enhancer activity optimization
 
 
 ## Citation

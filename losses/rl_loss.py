@@ -126,6 +126,14 @@ def dna_loss(
     log_p_x0_old, p_xs_old, indices_old, xs_old_seq, vocab_size = gen_samples(old_model)
 
     copy_flag = (xt_seq != new_model.mask_index).to(xt_seq.dtype)
+    if args.rs_gen_model == 'pre':
+        gen_model = pre_model
+    elif args.rs_gen_model == 'new':
+        gen_model = new_model
+    elif args.rs_gen_model == 'old':
+        gen_model = old_model
+    else:
+        raise NotImplementedError()
     # log_p_x0 = new_model.forward(xt, condt)  # [batch_size, sequence_length, 5]
     # log_p_x0_old = old_model.forward(xt, condt)
     # # log_p_x0_pre = pre_model.forward(last_x, condt)[:, :, :-1]
@@ -164,7 +172,7 @@ def dna_loss(
         reward_model=eval_models.reward_train,
         input_x=F.one_hot(xs_old_seq, num_classes=vocab_size).float(),
         input_t=conds,
-        gen_model=pre_model,
+        gen_model=gen_model,
     )
     if args.reward_norm == 'none':
         pass
@@ -188,11 +196,23 @@ def dna_loss(
     p_xs_select_valid_sum = p_xs_select_valid.sum(dim=1)  # [B]
 
     if args.loss_func == 'KL':
-        teacher_weight = torch.exp(v_xs / args.teacher_alpha).detach()  # [bs]
+        v_xs = torch.exp(v_xs / args.teacher_alpha).detach()  # [bs]
 
-        loss = -(teacher_weight * p_xs_select_valid_sum).mean()  # scalar
+        if args.use_value_xt:
+            v_xt = calc_reward_dna(
+                reward_model=eval_models.reward_train,
+                input_x=xt.float(),
+                input_t=condt,
+                gen_model=gen_model,
+            )
+            if args.reward_norm == 'normal':
+                v_xt = (v_xt - v_xt.mean().detach()) / (v_xt.std().detach() + 1e-8)
+            v_xt = torch.exp(v_xt / args.teacher_alpha).detach()  # [bs]
+            v_xs = v_xs / v_xt
 
-        reward_weight, log_probs = teacher_weight.mean(), p_xs_select_valid_sum.mean()
+        loss = -(v_xs * p_xs_select_valid_sum).mean()  # scalar
+
+        reward_weight, log_probs = v_xs.mean(), p_xs_select_valid_sum.mean()
 
     elif args.loss_func == 'RW_MLE':
         x0_seq = sample_new
