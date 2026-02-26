@@ -178,7 +178,10 @@
 
         <div class="content has-text-justified">
           <p>
-            VIDD (<b>V</b>alue-guided <b>I</b>terative <b>D</b>istillation for <b>D</b>iffusion models) is designed to maximize possibly non-differentiable downstream reward functions in diffusion models in a stable and sample-efficient manner. The core idea is to iteratively distill soft-optimal policies&mdash;teacher denoising processes that optimize the reward while remaining close to the current fine-tuned model. Unlike PPO-based approaches (DDPO), which are on-policy and minimize reverse KL divergence (leading to mode-seeking behavior and potential mode collapse), VIDD supports off-policy updates and optimizes forward KL divergence, contributing to more stable and effective fine-tuning.
+            VIDD (<b>V</b>alue-guided <b>I</b>terative <b>D</b>istillation for <b>D</b>iffusion models) is designed to maximize possibly non-differentiable downstream reward functions in diffusion models in a stable and sample-efficient manner. 
+            The core idea is to iteratively distill soft-optimal policies&mdash;teacher denoising processes that optimize the reward while remaining close to the current fine-tuned model. 
+            Our algorithm effectively leverages value functions tailored to diffusion models to guide fine-tuning, analogous to value-weighted MLE in RL.
+            Notably, our framework leverages off-policy roll-ins—decoupling data collection from policy updates—and employs forward KL minimization rather than reverse KL.
           </p>
         </div>
 
@@ -187,7 +190,10 @@
                alt="Algorithm 1: VIDD pseudocode"
                style="max-width: 720px;">
           <p class="figure-caption">
-            <b>Algorithm 1:</b> VIDD (Value-guided Iterative Distillation for Diffusion models). Each training iteration consists of three key components: (1) <em>roll-in</em>&mdash;collecting off-policy training data using a mixture strategy that balances exploration and exploitation; (2) <em>roll-out</em>&mdash;approximating the teacher policy by sampling from a periodically updated roll-out policy and computing soft value functions; and (3) <em>distillation</em>&mdash;updating the model via a value-weighted maximum likelihood objective.
+            <b>Algorithm 1:</b> VIDD (Value-guided Iterative Distillation for Diffusion models). Each training iteration consists of three key components: 
+            (1) <em>roll-in</em>&mdash;defining the data distribution over which the loss is computed; 
+            (2) <em>roll-out</em>&mdash;aiming to approximate the teacher policy by sampling from a roll-out policy and computing its corresponding weight (soft value); 
+            and (3) <em>distillation</em>&mdash;defining the objective as as the KL divergence between the teacher policies and the student policies (i.e., the fine-tuned models).
           </p>
         </div>
       </div>
