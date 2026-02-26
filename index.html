@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VIDD: Value-guided Iterative Distillation for Diffusion models. A novel fine-tuning framework for reward-guided biomolecular design.">
+  <meta name="keywords" content="VIDD, Diffusion Models, Reward Fine-Tuning, Protein Design, DNA Design, Molecule Design, Reinforcement Learning, Biomolecular Design">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VIDD: Value-guided Iterative Distillation for Diffusion Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    .paper-figure {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .paper-figure img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    .figure-caption {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #4a4a4a;
+      text-align: justify;
+    }
+    .viz-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .viz-grid img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    @media (max-width: 768px) {
+      .viz-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://stevensu1999.github.io/">Xingyu Su</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://xinerli.github.io/">Xiner Li</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://masatoshiuehara.com/">Masatoshi Uehara</a><sup>2*&dagger;</sup>,</span>
+            <span class="author-block">
+              <a href="https://swkim101.github.io/">Sunwoo Kim</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://yulai-zhao.com/">Yulai Zhao</a><sup>4</sup>,</span>
+            <span class="author-block">
+              Gabriele Scalia<sup>5</sup>,</span>
+            <span class="author-block">
+              Ehsan Hajiramezanali<sup>5</sup>,</span>
+            <span class="author-block">
+              Tommaso Biancalani<sup>5</sup>,</span>
+            <span class="author-block">
+              Degui Zhi<sup>6</sup>,</span>
+            <span class="author-block">
+              <a href="https://people.tamu.edu/~sji/">Shuiwang Ji</a><sup>1&Dagger;</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block"><sup>1</sup>Texas A&amp;M University,</span>
+            <span class="author-block"><sup>2</sup>EvolutionaryScale,</span>
+            <span class="author-block"><sup>3</sup>Seoul National University,</span>
+            <span class="author-block"><sup>4</sup>Princeton University,</span>
+            <span class="author-block"><sup>5</sup>Genentech,</span>
+            <span class="author-block"><sup>6</sup>University of Texas Health Science Center at Houston</span>
+          </div>
+
+          <div class="is-size-7 publication-authors" style="margin-top: 0.3rem;">
+            <span class="author-block"><sup>*</sup>Equal Contribution,</span>
+            <span class="author-block"><sup>&dagger;</sup>Work done while at Genentech,</span>
+            <span class="author-block"><sup>&Dagger;</sup>Corresponding Author</span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block" style="font-weight: 600;">Published as a Conference Paper at ICLR 2026</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2507.00445"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2507.00445"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/divelab/VIDD"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We address the problem of fine-tuning diffusion models for reward-guided generation in biomolecular design. While diffusion models have proven highly effective in modeling complex, high-dimensional data distributions, real-world applications often demand more than high-fidelity generation, requiring optimization with respect to potentially non-differentiable reward functions such as physics-based simulation or rewards based on scientific knowledge. Although RL methods have been explored to fine-tune diffusion models for such objectives, they often suffer from instability, low sample efficiency, and mode collapse due to their on-policy nature.
+          </p>
+          <p>
+            In this work, we propose an iterative distillation-based fine-tuning framework that enables diffusion models to optimize for arbitrary reward functions. Our method casts the problem as policy distillation: it collects off-policy data during the roll-in phase, simulates reward-based soft-optimal policies during roll-out, and updates the model by minimizing the KL divergence between the simulated soft-optimal policy and the current model policy. Our off-policy formulation, combined with KL divergence minimization, enhances training stability and sample efficiency compared to existing RL-based methods. Empirical results demonstrate the effectiveness and superior reward optimization of our approach across diverse tasks in protein, small molecule, and regulatory DNA design.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Method Overview -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="paper-figure">
+          <img src="./static/images/fig1.png"
+               alt="Overview of the VIDD framework">
+          <p class="figure-caption">
+            <b>Figure 1:</b> Overview of VIDD. VIDD fine-tunes diffusion models to maximize potentially non-differentiable rewards by iteratively distilling soft-optimal denoising policies. It alternates between (1) off-policy roll-in, (2) value-guided reward-weighted roll-out, and (3) forward KL-based model updates. Our algorithm leverages off-policy roll-ins and forward KL minimization, which contribute to improved optimization stability.
+          </p>
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            VIDD (<b>V</b>alue-guided <b>I</b>terative <b>D</b>istillation for <b>D</b>iffusion models) is designed to maximize possibly non-differentiable downstream reward functions in diffusion models in a stable and sample-efficient manner. The core idea is to iteratively distill soft-optimal policies&mdash;teacher denoising processes that optimize the reward while remaining close to the current fine-tuned model. Unlike PPO-based approaches (DDPO), which are on-policy and minimize reverse KL divergence (leading to mode-seeking behavior and potential mode collapse), VIDD supports off-policy updates and optimizes forward KL divergence, contributing to more stable and effective fine-tuning.
+          </p>
+        </div>
+
+        <div class="paper-figure">
+          <img src="./static/images/alg1.png"
+               alt="Algorithm 1: VIDD pseudocode"
+               style="max-width: 720px;">
+          <p class="figure-caption">
+            <b>Algorithm 1:</b> VIDD (Value-guided Iterative Distillation for Diffusion models). Each training iteration consists of three key components: (1) <em>roll-in</em>&mdash;collecting off-policy training data using a mixture strategy that balances exploration and exploitation; (2) <em>roll-out</em>&mdash;approximating the teacher policy by sampling from a periodically updated roll-out policy and computing soft value functions; and (3) <em>distillation</em>&mdash;updating the model via a value-weighted maximum likelihood objective.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Experiments -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Experiments</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-justified">
+          <p>
+            We evaluate VIDD across diverse biomolecular design tasks: protein secondary structure matching (&beta;-sheet), protein binder design (PD-L1 and IFNAR2), regulatory DNA enhancer design (HepG2), and small molecule docking optimization (Parp1). VIDD consistently achieves the highest rewards among all fine-tuning baselines.
+          </p>
+        </div>
+
+        <div class="paper-figure">
+          <img src="./static/images/exper1.png"
+               alt="Table 1: Performance on protein, DNA, and molecule design tasks">
+          <p class="figure-caption">
+            <b>Table 1:</b> Performance of different methods on protein, DNA, and molecular generation tasks w.r.t. rewards and naturalness. The best result among fine-tuning baselines is highlighted in bold. We report the 50% quantile of the metric distribution. The &plusmn; specifies the standard error of the estimate quantile with 95% confidence interval.
+          </p>
+        </div>
+
+        <div class="paper-figure" style="margin-top: 2rem;">
+          <img src="./static/images/exper2.png"
+               alt="Table 2: Performance on protein binding design tasks">
+          <p class="figure-caption">
+            <b>Table 2:</b> Performance of different methods on protein binding design tasks w.r.t. ipTM, optimized reward, and diversity. The best result is highlighted in bold.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Visualizations -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Visualizations</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <!-- Protein Binder: PD-L1 -->
+        <h3 class="title is-4">Protein Binder Design: PD-L1</h3>
+        <div class="content has-text-justified">
+          <p>
+            Predicted protein structures for the PD-L1 binding design task. The designed binder protein is shown in <span style="color: #2ecc40; font-weight: 600;">green</span> and the target protein PD-L1 is in <span style="color: #e67e22; font-weight: 600;">orange</span>, with hotspot residues labeled on the structure.
+          </p>
+        </div>
+        <div class="viz-grid">
+          <img src="./static/images/viz_PDL1_1.png" alt="PD-L1 binder visualization 1">
+          <img src="./static/images/viz_PDL1_2.png" alt="PD-L1 binder visualization 2">
+        </div>
+
+        <!-- Protein Binder: IFNAR2 -->
+        <h3 class="title is-4" style="margin-top: 2rem;">Protein Binder Design: IFNAR2</h3>
+        <div class="content has-text-justified">
+          <p>
+            Predicted protein structures for the IFNAR2 binding design task. The designed binder protein is shown in <span style="color: #2ecc40; font-weight: 600;">green</span> and the target protein IFNAR2 is in <span style="color: #e67e22; font-weight: 600;">orange</span>, with hotspot residues labeled on the structure.
+          </p>
+        </div>
+        <div class="viz-grid">
+          <img src="./static/images/viz_ifnar2_1.png" alt="IFNAR2 binder visualization 1">
+          <img src="./static/images/viz_ifnar2_2.png" alt="IFNAR2 binder visualization 2">
+        </div>
+
+        <!-- SS-match -->
+        <h3 class="title is-4" style="margin-top: 2rem;">Protein Secondary Structure Matching</h3>
+        <div class="content has-text-justified">
+          <p>
+            Predicted protein structures for the secondary structure matching (&beta;-sheet) task. VIDD successfully generates proteins with high &beta;-sheet content, demonstrating its ability to optimize non-differentiable structural rewards. The visualizations show the &beta;-sheet-rich structures generated by our method.
+          </p>
+        </div>
+        <div class="viz-grid">
+          <img src="./static/images/viz_ss_1.png" alt="SS-match visualization 1">
+          <img src="./static/images/viz_ss_2.png" alt="SS-match visualization 2">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{su2025iterative,
+title={Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design},
+author={Su, Xingyu and Li, Xiner and Uehara, Masatoshi and Kim, Sunwoo and Zhao, Yulai and Scalia, Gabriele and Hajiramezanali, Ehsan and Biancalani, Tommaso and Zhi, Degui and Ji, Shuiwang},
+journal={arXiv preprint arXiv:2507.00445},
+year={2025}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2507.00445">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/divelab/VIDD" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This website template is borrowed from the <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

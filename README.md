@@ -1,49 +1,20 @@
-# Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design (VIDD)
+# VIDD: Value-guided Iterative Distillation for Diffusion Models
 
-This repository contains the official implementation of paper [Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design](https://arxiv.org/pdf/2507.00445), including DNA sequence design, protein sequence design and molecule design.
+This is the project page for the paper:
 
+**Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design**
 
-## Overview
+*Xingyu Su\*, Xiner Li\*, Masatoshi Uehara\*, Sunwoo Kim, Yulai Zhao, Gabriele Scalia, Ehsan Hajiramezanali, Tommaso Biancalani, Degui Zhi, Shuiwang Ji*
 
-We address the problem of fine-tuning diffusion models for reward-guided generation in biomolecular design. 
-We propose an iterative distillation-based fine-tuning framework that casts the problem as policy distillation.
+Published as a Conference Paper at **ICLR 2026**
 
-## Installation
+[Paper](https://arxiv.org/pdf/2507.00445) | [arXiv](https://arxiv.org/abs/2507.00445) | [Code](https://github.com/divelab/VIDD) | [Project Page](https://divelab.github.io/VIDD/)
 
-Run the installation script to set up the environment:
-
-```bash
-bash install.sh
-```
-
-**Note**: evodiff requires Python ≤ 3.9 for compatibility.
-
-## Quick Start
-
-
-### Protein Optimization
-
-Protein experiments include:
-- **Binding optimization**: Optimize sequences for binding to target proteins (PD-L1, IFNAR2)
-- **Secondary structure**: Optimize for maximizing β-sheet
-
-Example scripts:
-- `scripts/protein_binder_PD_L1.sh` - PD-L1 binding optimization
-- `scripts/protein_binder_IFNAR2.sh` - IFNAR2 binding optimization  
-- `scripts/protein_ss.sh` - Secondary structure optimization
-
-### DNA Optimization
-
-DNA experiments include:
-- **Enhancer Activity**: Optimize sequences for enhancer activity in the HepG2 cell line
-
-Example scripts:
-- `scripts/dna.sh` - Enhancer activity optimization
 
 
 ## Citation
 
-If you use this code in your research, please cite our paper:
+If you find this work useful, please cite our paper:
 
 ```bibtex
 @article{su2025iterative,
@@ -54,3 +25,8 @@ If you use this code in your research, please cite our paper:
 }
 ```
 
+# Website License
+
+This website is adapted from the [Nerfies](https://github.com/nerfies/nerfies.github.io) template.
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
