@@ -1,7 +1,10 @@
 # Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design (VIDD)
 
-This repository contains the official implementation of paper [Iterative Distillation for Reward-Guided Fine-Tuning of Diffusion Models in Biomolecular Design](https://arxiv.org/pdf/2507.00445), including DNA sequence design, protein sequence design and molecule design.
+[[Paper]](https://arxiv.org/pdf/2507.00445) [[arXiv]](https://arxiv.org/abs/2507.00445) [[Code]](https://github.com/divelab/VIDD) [[Project Page]](https://divelab.github.io/VIDD/)
 
+This repository contains the official implementation, including DNA sequence design, protein sequence design and molecule design.
+
+![VIDD Overview](assets/fig1.png)
 
 ## Overview
 
